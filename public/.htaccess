@@ -1,0 +1,5 @@
+#if file exists load,
+#anywhere map everything to index.php
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [L]

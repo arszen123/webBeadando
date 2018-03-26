@@ -1,0 +1,246 @@
+html {
+    height: 100%;
+    word-wrap: break-word;
+}
+
+body {
+    min-height: 100%;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    font: bold 1.2em arial;
+    text-align: center;
+}
+
+header {
+    background: blue;
+}
+
+main {
+    width: 90%;
+    margin: 25px auto;
+    color: #444;
+}
+
+#menu {
+    padding: 0;
+    margin: 0;
+}
+
+#menu li {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background: blue;
+    display: block;
+}
+
+#menu li:hover {
+    background: darkblue;
+}
+
+#menu li.active {
+    background: darkblue;
+}
+
+#menu a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: black;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+}
+
+form {
+    text-align: center;
+}
+
+form label {
+    display: block;
+}
+
+form input {
+    margin: auto;
+}
+
+form input[type=email], input[type=password], input[type=text] {
+    display: block;
+    text-align: center;
+    border-radius: 50px;
+    border: solid 5px #cccccc;
+    padding: 5px;
+}
+
+form input[type=email]:focus, input[type=password]:focus, input[type=text]:focus {
+    border: solid 5px lightblue;
+    color: lightblue;
+    font-style: bold;
+    outline: none;
+}
+
+form input[type=submit] {
+    margin-top: 10px;
+    background: green;
+    display: block;
+    text-align: center;
+    border-radius: 10px;
+    border: 0;
+    padding: 5px;
+    width: 25%;
+    height: 40px;
+    font: bold 20px arial;
+}
+
+form input[type=submit]:hover {
+    background: lightgreen;
+    color: darkslategrey;
+}
+
+form input[type=checkbox] {
+    display: inline;
+}
+
+form label[for=requirement] {
+    width: fit-content;
+    font: bold 15px arial;
+}
+
+form .row {
+    line-height: 1.5em;
+}
+
+form .row > * {
+    display: inline;
+}
+
+@media only screen and (max-width: 768px) {
+
+    #menu li:first-child {
+        margin-top: 0;
+    }
+
+    #menu li:last-child {
+        margin-bottom: 0;
+    }
+
+    .pizza-element {
+        text-align: center;
+        width: 100%;
+    }
+
+}
+
+@media only screen and (min-width: 768px) {
+
+    main {
+        margin-top: 75px;
+        width: 75%;
+    }
+
+    header {
+        z-index: 99;
+        height: 50px;
+        width: 100%;
+        top: 0;
+        position: fixed;
+        background: #C7DD8B;
+    }
+
+    #menu {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        cursor: default;
+    }
+
+    #menu li {
+        margin: 0 10px 0 10px;
+        width: 20%;
+        height: 100%;
+        display: inline-block;
+        background: blue;
+    }
+
+    .pizza-element {
+        text-align: center;
+        float: left;
+        display: inline;
+        width: 30%;
+    }
+
+}
+
+.pizza-element img {
+    width: 150px;
+    height: 150px;
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
+    -webkit-transition: filter 1s, -webkit-filter 1s; /* For Safari 3.1 to 6.0 */
+    transition: filter 1s, -webkit-filter 1s;
+}
+
+.pizza-element img:hover {
+    -webkit-filter: grayscale(0%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(0%);
+}
+
+.pizza-element .description {
+    text-align: center;
+}
+
+.description button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    -webkit-transition: background-color 1s;
+    transition: background-color 1s;
+}
+
+.description button:hover {
+    background-color: lightgreen;
+}
+
+#cart_list li {
+    display: block;
+}
+
+#cart_list input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#cart_list input[type=number] {
+    text-align: right;
+    width: 2em;
+}
+
+form input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+form input[type=number] {
+    width: 4em;
+    text-align: right;
+}
+
+form textarea {
+    min-width: 473px;
+    min-height: 325px;
+}
+
+#price-table, #price-table th, td {
+    border: 1px solid black;
+    text-align: left;
+}
+
+#price-table tr td:last-child, #price-table th:last-child {
+    text-align: right;
+}
