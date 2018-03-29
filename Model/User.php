@@ -28,6 +28,32 @@ class User extends DBConnection
     private $country;
     private $address;
 
+    private $orderList;
+
+    /**
+     * @return array
+     */
+    public function getOrderList()
+    {
+        return $this->orderList;
+    }
+
+    /**
+     * @param Pizza $pizza
+     */
+    public function addOrder($pizza)
+    {
+        $this->orderList[] = $pizza;
+    }
+
+    /**
+     * @param array $pizzas
+     */
+    public function setOrder($pizzas)
+    {
+        $this->orderList = $pizzas;
+    }
+
     public function __construct($data = array())
     {
         if (!empty($data)) {

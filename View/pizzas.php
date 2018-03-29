@@ -1,78 +1,22 @@
 <div id="pizza-container">
-    <div class="pizza-row">
+    <?php for ($i = 0; $i < count($pizzas); $i++): ?>
+        <?php if ($i % 3 === 0): ?>
+            <div class="pizza-row">
+        <?php endif; ?>
         <div class="pizza-element">
-            <a href="pizza.html"><img
-                        src="http://2.bp.blogspot.com/-l9vJcKKIp9o/Uew2ZAnpOiI/AAAAAAAABBU/unham8E3sDE/s1600/Pizza+Wallpapers8.jpg"/></a>
+            <a href="/pizza?id=<?= $pizzas[$i]->getId() ?>">
+                <img src="http://via.placeholder.com/150x150"/>
+            </a>
             <div class="description">
-                <p>Hawaii</p>
-                <button>Kosárba teszem!</button>
+                <p><?= $pizzas[$i]->getName() ?></p>
+                <p><?= $pizzas[$i]->getPrice() ?></p>
+                <a href="/pizza/add?id=<?= $pizzas[$i]->getId() ?>">
+                    <button>Kosárba teszem!</button>
+                </a>
             </div>
         </div>
-
-        <div class="pizza-element">
-            <img src="http://via.placeholder.com/150x150"/>
-            <div class="description">
-                <p>Chuck Noris</p>
-                <button>Kosárba teszem!</button>
+        <?php if ($i % 3 === 0): ?>
             </div>
-        </div>
-
-        <div class="pizza-element">
-            <img src="http://via.placeholder.com/150x150"/>
-            <div class="description">
-                <p>Nutella</p>
-                <button>Kosárba teszem!</button>
-            </div>
-        </div>
-    </div>
-    <div class="pizza-row">
-        <div class="pizza-element">
-            <img src="http://via.placeholder.com/150x150"/>
-            <div class="description">
-                <p>Vega</p>
-                <button>Kosárba teszem!</button>
-            </div>
-        </div>
-
-        <div class="pizza-element">
-            <img src="http://via.placeholder.com/150x150"/>
-            <div class="description">
-                <p>Fortune</p>
-                <button>Kosárba teszem!</button>
-            </div>
-        </div>
-
-        <div class="pizza-element">
-            <img src="http://via.placeholder.com/150x150"/>
-            <div class="description">
-                <p>Burger Pizza</p>
-                <button>Kosárba teszem!</button>
-            </div>
-        </div>
-    </div>
-    <div class="pizza-row">
-        <div class="pizza-element">
-            <img src="http://via.placeholder.com/150x150"/>
-            <div class="description">
-                <p>True Italian</p>
-                <button>Kosárba teszem!</button>
-            </div>
-        </div>
-
-        <div class="pizza-element">
-            <img src="http://via.placeholder.com/150x150"/>
-            <div class="description">
-                <p>4 Sajtos</p>
-                <button>Kosárba teszem!</button>
-            </div>
-        </div>
-
-        <div class="pizza-element">
-            <img src="http://via.placeholder.com/150x150"/>
-            <div class="description">
-                <p>Csirkés</p>
-                <button>Kosárba teszem!</button>
-            </div>
-        </div>
-    </div>
+        <?php endif; ?>
+    <?php endfor; ?>
 </div>
