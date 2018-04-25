@@ -10,9 +10,15 @@ namespace Model;
 
 
 use Framework\DBConnection;
+use Util\Password;
 
 class User extends DBConnection
 {
+
+    /** Nem akarok meg egy column-t bevezetni, szoval majd ezt kell boviteni*/
+    private $adminMails = [
+        'ali.arsen@stud.u-szeged.hu',
+    ];
 
     protected $fileName = 'users.csv';
 
@@ -20,7 +26,6 @@ class User extends DBConnection
 
     protected $authSuccess = false;
 
-    private $id;
     private $name;
     private $email;
     private $password;
@@ -179,7 +184,7 @@ class User extends DBConnection
 
     public function auth($password)
     {
-        if (hash('sha256', $password) === $this->password) {
+        if (Password::hash($password) === $this->password) {
             $this->authSuccess = true;
         }
     }
@@ -187,6 +192,34 @@ class User extends DBConnection
     public function isAuth()
     {
         return $this->authSuccess;
+    }
+
+    public static function isLoggedInUser()
+    {
+        $user = $_SESSION['loggedInUser'];
+        if ($user instanceof self) {
+            return $user->isAuth();
+        }
+        return false;
+    }
+
+    /**
+     * @return null|User
+     */
+    public static function getAuthUser()
+    {
+        if (self::isLoggedInUser()) {
+            return $_SESSION['loggedInUser'];
+        }
+        return null;
+    }
+
+    public function isAdmin()
+    {
+        if (in_array($this->email, $this->adminMails)) {
+            return true;
+        }
+        return false;
     }
 
 }

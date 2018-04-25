@@ -5,10 +5,12 @@
 ?>
 <div id="pizza-details">
     <img width="500" height="500"
-         src="http://2.bp.blogspot.com/-l9vJcKKIp9o/Uew2ZAnpOiI/AAAAAAAABBU/unham8E3sDE/s1600/Pizza+Wallpapers8.jpg"/>
+         src="<?= $pizza->getImage(500, 500) ?>"/>
     <div class="description">
         <p><?= $pizza->getName() ?></p>
-        <a href="/pizza/add?id=<?= $pizza->getId()?>"><button>Kosárba vele!</button></a>
+        <a href="/pizza/add?id=<?= $pizza->getId() ?>">
+            <button>Kosárba vele!</button>
+        </a>
 
         <div id="descr">
             <?= $pizza->getDescription() ?>

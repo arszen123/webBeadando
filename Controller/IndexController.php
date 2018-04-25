@@ -27,7 +27,7 @@ class IndexController
         $pizzas = $pizza->getBy();
         $newPizzas = [];
         foreach ($pizzas as $pizza) {
-            if(trim($pizza->getAvailability()) === 'on') {
+            if (trim($pizza->getAvailability()) === 'on') {
                 $newPizzas[] = $pizza;
             }
         }
@@ -38,9 +38,10 @@ class IndexController
     {
         $pizza = new Pizza();
         $pizza = $pizza->getBy(['id' => $_GET['id']]);
-        if(count($pizza) !== 1)
+        if (count($pizza) !== 1) {
             return Redirect::to('/pizzas');
-        return View::make('pizza',['pizza' => $pizza[0]]);
+        }
+        return View::make('pizza', ['pizza' => $pizza[0]]);
     }
 
     public function addPizza()
@@ -52,6 +53,11 @@ class IndexController
         }
 
         return Redirect::to('/pizzas');
+    }
+
+    public function missingRoute()
+    {
+        return Redirect::to('/');
     }
 
 }

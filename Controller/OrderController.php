@@ -11,6 +11,8 @@ namespace Controller;
 
 use Framework\Redirect;
 use Framework\View;
+use Mail\OrderNotifiMail;
+use Model\Order;
 use Model\Pizza;
 use Model\User;
 
@@ -29,13 +31,30 @@ class OrderController
 
     public function makeOrder()
     {
-        //send Mail us, him/her
+        if (!User::isLoggedInUser()) {
+            return Redirect::to('/login');
+        }
+        if (User::getAuthUser()->getOrderList() == null || empty(User::getAuthUser()->getOrderList())) {
+            return Redirect::to('/pizzas');
+        }
+        //Talán kiküldi, talán nem.
+        $mail = new OrderNotifiMail(User::getAuthUser());
+        $mail->send();
+
+        $order = new Order(User::getAuthUser());
+        $order->save();
+        User::getAuthUser()->setOrder(null);
+        return View::make('success');
     }
 
     public function getBill()
     {
+
+        if (!User::isLoggedInUser()) {
+            return Redirect::to('/login');
+        }
         /** @var User $user */
-        $user = $_SESSION['loggedInUser'];
+        $user = User::getAuthUser();
         $pizzas = $user->getOrderList();
         $order = $_POST;
         $newPizzas = [];
@@ -46,8 +65,10 @@ class OrderController
                 ((int)$order['id'][$i]) === (int)$pizzas[$i]->getId()
             ) {
                 $pizzas[$i]->setNumber($order['item'][$i]<0 ? 0 : $order['item'][$i]);
-                $pizzas[$i]->setSize($order['type'][$i] | Pizza::SIZE_28);
-                $newPizzas[] = $pizzas[$i];
+                if ($pizzas[$i]->getNumber() !== 0) {
+                    $pizzas[$i]->setSize(isset($order['type'][$i]) ? (int)$order['type'][$i] : Pizza::SIZE_28);
+                    $newPizzas[] = $pizzas[$i];
+                }
             }
         }
         $user->setOrder($newPizzas);

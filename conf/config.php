@@ -14,6 +14,13 @@ return [
             'pizzas' => 'Pizzák',
             'order' => 'Rendelés',
             'logout' => 'Kijelentkezés',
+        ],
+        'loggedInAdminMenu' => [
+            '/' => 'Fő oldal',
+            'pizzas' => 'Pizzák',
+            'admin' => 'Szerkesztő',
+            'admin/order/list' => 'Rendelés lista',
+            'logout' => 'Kijelentkezés',
         ]
     ],
     'dbFiles' => __DIR__ . '/../data',

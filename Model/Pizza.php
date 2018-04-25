@@ -62,7 +62,7 @@ class Pizza extends DBConnection
      */
     public function setNumber($number)
     {
-        $this->number = $number;
+        $this->number = (int)$number;
     }
 
     private $number;
@@ -166,6 +166,10 @@ class Pizza extends DBConnection
             'price' => 'required',
         ];
 
+        if ($this->availability !== 'on') {
+            $this->availability = 'off';
+        }
+
         parent::validate();
     }
 
@@ -174,8 +178,10 @@ class Pizza extends DBConnection
         return $this->valid;
     }
 
-    public function getSizeToHuman()
+    public function getSizeToHuman($size)
     {
+        $tmp = $this->size;
+        $this->size = $size;
         if ($this->size === $this::SIZE_28) {
             return '28 cm';
         }
@@ -188,6 +194,7 @@ class Pizza extends DBConnection
         if ($this->size === $this::SIZE_100) {
             return '100 cm';
         }
+        $this->size = $tmp;
     }
 
     public function getCost()
@@ -198,5 +205,23 @@ class Pizza extends DBConnection
             $diff = ($size * $this->price * 0.25);
         }
         return $this->price + $diff;
+    }
+
+    public function getOrderAsArray()
+    {
+        return [
+            'id' => $this->getId(),
+            'number' => $this->getNumber(),
+            'size' => $this->getSize(),
+        ];
+    }
+
+    public function getImage($widht = 50, $height = 50)
+    {
+        $image = 'assets/pizzas/pizza_' . $this->getId() . '.png';
+        if (file_exists(WEBAPP_ROOT . '/' . $image)) {
+            return $image;
+        }
+        return '//via.placeholder.com/' . $widht . 'x' . $height;
     }
 }

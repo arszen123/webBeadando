@@ -12,6 +12,7 @@ namespace Controller;
 use Framework\Redirect;
 use Framework\View;
 use Model\User;
+use Util\Password;
 
 class AuthController
 {
@@ -24,8 +25,9 @@ class AuthController
     public function postLogin()
     {
         /** Fake User */
-        if ($_SESSION['loggedInUser'] instanceof User && $_SESSION['loggedInUser']->isAuth())
+        if (User::isLoggedInUser()) {
             return Redirect::to('/');
+        }
         $user = new User();
         $t = $user->getBy(['email' => $_POST['email']]);
 
@@ -39,8 +41,10 @@ class AuthController
         if (!$user->isAuth()) {
             return Redirect::to('/login');
         }
-
+        /** Keep the cart */
+        $orderList = $_SESSION['loggedInUser']->getOrderList();
         $_SESSION['loggedInUser'] = $user;
+        $_SESSION['loggedInUser']->setOrder($orderList);
 
         return Redirect::to('/');
     }
@@ -53,9 +57,11 @@ class AuthController
     public function postRegistration()
     {
         $user = new User($_POST);
+        $user->setPassword(Password::hash($user->getPassword()));
         $fakeUser = $user->getBy(['email' => $user->getEmail()]);
-        if (count($fakeUser) !== 0)
+        if (count($fakeUser) !== 0) {
             return Redirect::to('/register');
+        }
         $user->validate();
         if (!$user->isValid()) {
             return Redirect::to('/');

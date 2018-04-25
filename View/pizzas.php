@@ -5,7 +5,7 @@
         <?php endif; ?>
         <div class="pizza-element">
             <a href="/pizza?id=<?= $pizzas[$i]->getId() ?>">
-                <img src="http://via.placeholder.com/150x150"/>
+                <img src="<?= $pizzas[$i]->getImage(150, 150) ?>"/>
             </a>
             <div class="description">
                 <p><?= $pizzas[$i]->getName() ?></p>
